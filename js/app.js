@@ -18,6 +18,8 @@
  * 
 */
 
+let sections = document.getElementsByTagName('section')
+
 
 /**
  * End Global Variables
@@ -34,7 +36,41 @@
 */
 
 // build the nav
+let navList = document.getElementById('navBar')
+for(let section of sections){
+    const newLink = document.createElement('li')
+    const newUrl = document.createElement('a')
+    const secName = section.querySelector('h2')
+    newUrl.innerHTML = secName.innerHTML
+    newUrl.setAttribute('href',`#${section.id}`)
+    newLink.classList = "nav-item"
+    newUrl.classList = "nav-link"
+    newLink.appendChild(newUrl)
+    navList.appendChild(newLink)
+    
+}
+const navBar = document.querySelector('nav')
+const stickyDistance = navBar.offsetTop
 
+function navBarResponsive(){
+    console.log(window.pageYOffset)
+    if(window.pageYOffset >= stickyDistance){
+        navBar.classList.add("sticky")
+        console.log(window.pageYOffset)
+    } else {
+        navBar.classList.remove("sticky")
+        console.log('there')
+    }
+} 
+window.onscroll = navBarResponsive()
+document.addEventListener('scroll',function(){
+    if(window.pageYOffset >= stickyDistance){
+        navBar.classList.add("sticky")
+        
+    } else {
+        navBar.classList.remove("sticky")
+        console.log('there')
+    }})
 
 // Add class 'active' to section when near top of viewport
 
