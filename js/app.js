@@ -53,27 +53,47 @@ for(let section of sections){
     
 }
 const navBar = document.querySelector('nav')
+let lastScrollTop = 0
+let lastSize = 0
 
 document.addEventListener('scroll',function(){
-    if(window.pageYOffset >= 60){
+    if(window.pageYOffset >= 10){
         navBar.classList.add("sticky")
     } else {
         navBar.classList.remove("sticky")
     }
 
-    
+
+   
     for (section of sections){
         const sectionOffset = section.getBoundingClientRect()
-        if(100 > sectionOffset.top && sectionOffset.top > -50){
+        if(400 > sectionOffset.top && sectionOffset.top > -200){
+            //detecing scroll direction
+            let st = window.pageYOffset
+            if(st>lastScrollTop){
+                //down
+                lastSize = (-sectionOffset.top/1000)*2+1.75 > 1.65 ? 1.65:((-sectionOffset.top/1000)*2+1.75 < 1.2 ? 1.2:(-sectionOffset.top/1000)*2+1.75) 
+                section.style.fontSize = `${lastSize}rem`
+                
+            } else {
+                //up
+                size = lastSize - (sectionOffset.top/1000) > 1.65 ? 1.65: (lastSize - (sectionOffset.top/1000) < 1.2 ? 1.2 : lastSize - (sectionOffset.top/1000))
+                section.style.fontSize = `${size}rem`
+            }
+            lastScrollTop = st<=0 ? 0:st
+ 
             const link = document.getElementById(`${section.id}Link`)
             link.classList.add("active")  
-            section.classList.add("activeSection")
-            section.style.setProperty("--scroll",window.pageYOffset/(document.body.offsetHeight-window.innerHeight))
+           
+            
+            
         } else {
             const link = document.getElementById(`${section.id}Link`)
+            // section.style.fontSize = `${(sectionOffset.top/100)+1}rem`
             link.classList.remove("active")
-            // section.classList.remove("activeSection")
-            section.style.setProperty("--scroll",0)
+            console.log(`There ${sectionOffset.top}    ${section.id}`)
+            
+            
         }
         
     }
