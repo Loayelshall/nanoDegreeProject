@@ -37,6 +37,9 @@ let sections = document.getElementsByTagName('section')
 
 // Add class 'active' to section when near top of viewport
 
+
+
+
 // build the nav
 let navList = document.getElementById('navBar')
 for(let section of sections){
@@ -44,9 +47,10 @@ for(let section of sections){
     const newUrl = document.createElement('a')
     const secName = section.querySelector('h2')
     newUrl.innerHTML = secName.innerHTML
-    newUrl.setAttribute('href',`#${section.id}`)
     newLink.classList = "nav-item"
     newUrl.classList = "nav-link"
+    newUrl.classList.add('navbar_link')
+    newUrl.setAttribute('onclick',`goToSection('${section.id}')`)
     newUrl.setAttribute('id',`${section.id}Link`)
     newLink.appendChild(newUrl)
     navList.appendChild(newLink)
@@ -56,6 +60,9 @@ const navBar = document.querySelector('nav')
 let lastScrollTop = 0
 let lastSize = 0
 
+
+
+// Change section to active on scrolling
 document.addEventListener('scroll',function(){
     if(window.pageYOffset >= 10){
         navBar.classList.add("sticky")
@@ -69,6 +76,7 @@ document.addEventListener('scroll',function(){
         const sectionOffset = section.getBoundingClientRect()
         if(400 > sectionOffset.top && sectionOffset.top > -200){
             //detecing scroll direction
+            section.classList.add('activeParagraph')
             let st = window.pageYOffset
             if(st>lastScrollTop){
                 //down
@@ -89,11 +97,8 @@ document.addEventListener('scroll',function(){
             
         } else {
             const link = document.getElementById(`${section.id}Link`)
-            // section.style.fontSize = `${(sectionOffset.top/100)+1}rem`
             link.classList.remove("active")
-            console.log(`There ${sectionOffset.top}    ${section.id}`)
-            
-            
+            section.classList.remove('activeParagraph')
         }
         
     }
@@ -108,6 +113,14 @@ document.addEventListener('scroll',function(){
 
 
 // Scroll to anchor ID using scrollTO event
+function goToSection(id){
+    let section = document.getElementById(id)
+    window.scrollTo({
+        top: section.offsetTop,
+        behavior: 'smooth'
+    })
+
+}
 
 
 
@@ -119,7 +132,9 @@ document.addEventListener('scroll',function(){
 
 // Build menu 
 
+
 // Scroll to section on link click
+
 
 // Set sections as active
 
