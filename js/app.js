@@ -17,9 +17,8 @@
  * Define Global Variables
  * 
 */
-
+// Fetching all sections for future use
 let sections = document.getElementsByTagName('section')
-
 
 /**
  * End Global Variables
@@ -35,35 +34,37 @@ let sections = document.getElementsByTagName('section')
  * 
 */
 
-// Add class 'active' to section when near top of viewport
 
-
-
-
-// build the nav
-let navList = document.getElementById('navBar')
-for(let section of sections){
-    const newLink = document.createElement('li')
-    const newUrl = document.createElement('a')
-    const secName = section.querySelector('h2')
-    newUrl.innerHTML = secName.innerHTML
-    newLink.classList = "nav-item"
-    newUrl.classList = "nav-link"
-    newUrl.classList.add('navbar_link')
-    newUrl.setAttribute('onclick',`goToSection('${section.id}')`)
-    newUrl.setAttribute('id',`${section.id}Link`)
-    newLink.appendChild(newUrl)
-    navList.appendChild(newLink)
-    
+// build the navbar elements by dynamically adding the links according to the sections in the homepage
+function buildNav(){
+    let navList = document.getElementById('navBar')
+    for(let section of sections){
+        const newLink = document.createElement('li')
+        const newUrl = document.createElement('a')
+        const secName = section.querySelector('h2')
+        newUrl.innerHTML = secName.innerHTML
+        newLink.classList = "nav-item"
+        newUrl.classList = "nav-link"
+        newUrl.classList.add('navbar_link')
+        newUrl.setAttribute('onclick',`goToSection('${section.id}')`)
+        newUrl.setAttribute('id',`${section.id}Link`)
+        newLink.appendChild(newUrl)
+        navList.appendChild(newLink)
+        
+    }
 }
+
+
 const navBar = document.querySelector('nav')
 let lastScrollTop = 0
 let lastSize = 0
 
 
 
-// Change section to active on scrolling
+// Using the scroll event listener to detect the current position of the window and change the class of the section currently in view as well as its link in the navbar
+// to active state to state which section is currently active
 document.addEventListener('scroll',function(){
+    // adding and removing the sticky class to the navbar according to the position of the screen 
     if(window.pageYOffset >= 10){
         navBar.classList.add("sticky")
     } else {
@@ -71,7 +72,7 @@ document.addEventListener('scroll',function(){
     }
 
 
-   
+   // Looping over the sections of the page and checking for active section
     for (section of sections){
         const sectionOffset = section.getBoundingClientRect()
         if(400 > sectionOffset.top && sectionOffset.top > -200){
@@ -131,7 +132,7 @@ function goToSection(id){
 */
 
 // Build menu 
-
+buildNav()
 
 // Scroll to section on link click
 

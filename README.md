@@ -2,12 +2,14 @@
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [How it works](#Howitworks)
 
-## Instructions
+## 
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
 
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+## How it works
+  
+1) I started my implmentation by getting the sections of the page and storing them in a const for future use
+2) Then i implmented a function that loops through current page sections and build the navbar accordingly 
+3) then i added the event lisenter ( to listen for scrolling event ) to detect the current position of the window and the relative positions of the navbar and page sections to change their state from active to not active and vice versa when they are currently viewed
+4) Also used the scroll to function to smoothly scroll the user to the desired section when the corresponding button is pressed
